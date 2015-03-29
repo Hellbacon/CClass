@@ -1,0 +1,146 @@
+#include<iostream>
+#include<string>
+#include<ctime>
+#include<algorithm>
+#include<cstdlib>
+
+
+using namespace std;
+
+void boxPopulate(int const MAX, int box[], int &ran1, int &ran2, int const HIGH, int const MULT);
+void boxPrint(int const MAX, int box[]);
+void boxDuplicateCheck(int const MAX, int box[], int &ran1, int &ran2, int const HIGH, int const MULT);
+void Random(int &ran1, int const HIGH, int &ran2, int const MULT);
+void boxHIGHLOW(int const MAX, int box[], int lowCase, int highCase);
+void boxRemaining();
+void finalTwo();
+
+int main()
+{
+	srand((unsigned)time(0));
+
+	int const MAX = 10;
+	int const HIGH = 10;
+	int const MULT = 10;
+
+
+	int lowCase = 1000;
+	int highCase = 1;
+
+	int box[MAX] = {0};
+	int ran1  = 0;
+	int ran2  = 0;
+	
+	
+	
+	boxPopulate(MAX, box, ran1, ran2, HIGH, MULT);
+	boxDuplicateCheck(MAX, box, ran1, ran2, HIGH, MULT);
+	boxHIGHLOW(MAX, box, lowCase, highCase);
+	boxPrint(MAX, box);
+
+
+system("pause");
+return(0);
+}
+
+
+void boxPopulate(int const MAX, int box[], int &ran1, int &ran2, int const HIGH, int const MULT)
+{
+
+	for( int ran = 0; ran < MAX; ran++)
+	{
+				Random(ran1, HIGH, ran2, MULT);
+
+	for(int x = 0; x < MAX; x++)
+	{
+		
+		Random(ran1, HIGH, ran2, MULT);
+
+		box[x] = ran1 * ran2;	
+		
+
+	}
+	
+	}
+}
+
+void boxPrint(int const MAX, int box[])
+{
+	for(int x = 0; x < MAX; x++)
+	{
+		cout << "Box " << x << " is equal to :" << box[x] << endl <<endl;
+
+	}
+}
+
+void boxDuplicateCheck(int const MAX, int box[], int &ran1, int &ran2, int const HIGH, int const MULT)
+{
+	for(int x = 0; x < MAX; x++)
+	{
+
+		for(int y = 0; y < MAX; y++)
+		{
+			if (box[x] == box[y] && x != y)
+			{
+				cout << "duplicate!" <<endl <<endl <<endl;
+				cout << "duplicate location: " << endl << endl << x << " is equal to location" << y;
+				Random(ran1, HIGH, ran2, MULT);
+				box[x] = ran1 * ran2;
+				cout << "new value: " << box[x];
+				y = 0;
+				x = 0;
+			}
+
+}
+}
+}
+
+void Random(int &ran1, int const HIGH, int &ran2, int const MULT)
+{
+	
+	ran1 = rand() % HIGH + 1;
+	ran2 = rand() % MULT + 1;
+}
+
+void boxHIGHLOW(int const MAX, int box[], int lowCase, int highCase)
+{
+
+
+	for( int x = 0; x < MAX; x++)
+	{
+	if (box[x] < lowCase)
+	{		//new low
+			lowCase = box[x];
+	}
+	if (box[x] > highCase) 
+	{
+			//new high
+			highCase = box[x];
+
+	}
+	}
+
+	for(int y = 0; y < MAX; y++)
+	{
+		if(box[y] == lowCase)
+			box[y] = 1;
+		if(box[y] == highCase)
+			box[y] = 10000;
+	}
+
+
+}
+
+void boxRemaining()
+{
+
+
+
+}
+
+void finalTwo()
+{
+
+
+
+}
