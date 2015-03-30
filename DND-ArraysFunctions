@@ -5,37 +5,53 @@
 #include<cstdlib>
 
 
+
 using namespace std;
 
+string getName(string, char);
+int boxPick(int boxSelect, char goodChoice, int const MAX, int lowCase, int highCase, int &inc);
 void boxPopulate(int const MAX, int box[], int &ran1, int &ran2, int const HIGH, int const MULT);
 void boxPrint(int const MAX, int box[]);
 void boxDuplicateCheck(int const MAX, int box[], int &ran1, int &ran2, int const HIGH, int const MULT);
 void Random(int &ran1, int const HIGH, int &ran2, int const MULT);
 void boxHIGHLOW(int const MAX, int box[], int lowCase, int highCase);
-void boxRemaining();
+void boxRemaining(int const MAX, int box[], int boxSelect, int &caseCounter, int &casesLeft);
 void finalTwo();
 
 int main()
 {
+
 	srand((unsigned)time(0));
 
 	int const MAX = 10;
 	int const HIGH = 10;
-	int const MULT = 10;
+	int const MULT = 100;
 
+	string playerName;
+	char goodChoice = 0;
 
 	int lowCase = 1000;
 	int highCase = 1;
 
+	int inc = 0;
+	int boxSelect = 0;
 	int box[MAX] = {0};
 	int ran1  = 0;
 	int ran2  = 0;
+	int caseCounter = 0;
+	int casesLeft = MAX;
 	
-	
-	
+	playerName = getName(playerName, goodChoice);
 	boxPopulate(MAX, box, ran1, ran2, HIGH, MULT);
 	boxDuplicateCheck(MAX, box, ran1, ran2, HIGH, MULT);
 	boxHIGHLOW(MAX, box, lowCase, highCase);
+
+
+
+
+	boxSelect = boxPick(boxSelect, goodChoice, MAX, lowCase, highCase, inc);
+	boxRemaining(MAX, box, boxSelect, caseCounter, casesLeft);
+
 	boxPrint(MAX, box);
 
 
@@ -131,16 +147,86 @@ void boxHIGHLOW(int const MAX, int box[], int lowCase, int highCase)
 
 }
 
-void boxRemaining()
+
+//left off here
+void boxRemaining(int const MAX, int box[], int boxSelect, int &caseCounter, int &casesLeft)
+{
+
+	for(int x=0; x < MAX; x++)
+	{
+		if(box[x] != 0 && boxSelect != x+1)
+			cout << "Case" << x+1 << ",  ";
+			
+		int boxNumber = 0;
+	do {
+		cout << "Please pick a case to open other than case #" << boxSelect << ": ";
+		cin >> boxNumber;
+	} while(boxNumber == boxSelect || (boxNumber <= 0 || boxNumber > 10));
+
+	//output case contents
+	caseCounter += 1;
+	casesLeft -= 1;
+	
+	for (x
+			if (box[boxNumber] != 0) {
+				cout << "Case " << x << "had: $" << box[boxNumber] << endl;
+				accumulatedMoney = accumulatedMoney - case0;
+				case0 = 0;
+			
+
+	}
+
+
+	
+			
+
+}
+void finalTwo()
 {
 
 
 
 }
 
-void finalTwo()
+string getName(string playerName, char goodChoice)
+{
+	do {
+		cout << "Please enter your first name: ";
+		cin >> playerName;
+		cout << "You entered: " << playerName << " for your name, is this correct? (Y or N) ";
+		cin >> goodChoice;
+	} while(goodChoice != 'Y' && goodChoice != 'y');
+
+	cout << "Hello" << playerName << "Welcome to Deal or No Deal!";
+	system("cls");
+	return(playerName);
+}
+
+int boxPick(int boxSelect, char goodChoice, int const MAX, int lowCase, int highCase, int &inc)
 {
 
+	do {
+		//in range from 1-10?
+		do {
+			cout << "Please pick a case " << "1-" << MAX << ":";
+			cin >> boxSelect;
+		} while(boxSelect <= 0 || boxSelect > MAX);
+
+		//correct number entered?
+		cout << "You entered: " << boxSelect << " for your case, is this correct? (Y or N) ";
+		cin >> goodChoice;
+	} while(goodChoice != 'Y' && goodChoice != 'y');
+	system("cls");  //clear the screen
+
+	
+	//display choice and get ready to play game
+	if(inc == 0)
+	{
+	cout << "You chose case #" << boxSelect << endl;
+	cout << "Possible winnings this game range from $" << lowCase << " to $" << highCase << endl;
+	++inc;
+	}
 
 
+	return(boxSelect);
 }
